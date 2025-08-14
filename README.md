@@ -1,1 +1,228 @@
-# AgentFly
+# AgentFly: Fine-tuning LLM Agents **without** Fine-tuning LLMs
+
+> A memory-based, continual-learning framework that helps LLM agents improve from experience **without** updating model weights.
+
+<p align="center">
+  <b>Planner–Executor Architecture</b> • <b>Case-Based Reasoning</b> • <b>MCP Tooling</b> • <b>Memory-Augmented Learning</b>
+</p>
+
+---
+
+## 🔥 Key Features
+
+- **No LLM weight updates.** AgentFly reframes continual learning as **memory-based online reinforcement learning** over a **memory-augmented MDP**. A neural **case-selection policy** guides actions; experiences are stored and reused via efficient Read/Write operations.
+- **Two-stage plan–act loop.** A CBR-driven **Planner** decomposes tasks and retrieves relevant cases; an **Executor** runs each subtask as an MCP client, orchestrating tools and writing back outcomes.
+- **Comprehensive tool ecosystem.** Built-in support for web search, document processing, code execution, image/video analysis, and more through a unified MCP interface.
+- **Strong benchmark performance.** Achieves competitive results across GAIA, DeepResearcher, SimpleQA, and HLE benchmarks.
+
+---
+
+## 🧠 Core Concept
+
+**Learn from experiences, not gradients.** AgentFly logs successful & failed trajectories into a **Case Bank** and **retrieves by value** to steer planning and execution—enabling low-cost, transferable, and online continual learning.
+
+---
+
+## 🏗️ Architecture
+
+### Core Components
+
+- **Meta-Planner**: Breaks down high-level queries into executable subtasks using GPT-4.1
+- **Executor**: Executes individual subtasks using GPT-3.5 or other models via MCP tools
+- **Case Memory**: Stores final-step tuples **(s_T, a_T, r_T)** for experience replay
+- **MCP Tool Layer**: Unified interface for external tools and services
+
+### Tool Ecosystem
+
+- **Web Research**: Live search and controlled crawling via SearxNG
+- **Document Processing**: Multi-format support (PDF, Office, images, audio, video)
+- **Code Execution**: Sandboxed Python workspace with security controls
+- **Data Analysis**: Excel processing, mathematical computations
+- **Media Analysis**: Image captioning, video narration, audio transcription
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Python 3.10+
+- OpenAI API key (or compatible API endpoint)
+- Optional: SearxNG instance for web search
+
+### Installation
+
+```bash
+git clone https://github.com/Agent-on-the-Fly/AgentFly
+cd AgentFly
+pip install -r requirements.txt
+```
+
+### Environment Setup
+
+Create a `.env` file with your API keys:
+
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_BASE_URL=https://api.openai.com/v1  # or your custom endpoint
+```
+
+### Basic Usage
+
+#### Interactive Mode
+
+```bash
+python client/agent.py
+```
+
+#### Single Query Mode
+
+```bash
+python client/agent.py -q "What is the current weather in New York?" -m gpt-4.1 -e o3
+```
+
+#### With File Context
+
+```bash
+python client/agent.py -q "Summarize this document" -f /path/to/document.pdf
+```
+
+
+---
+
+## 🔧 Configuration
+
+### Model Selection
+
+- **Planner Model**: Defaults to `gpt-4.1` for task decomposition
+- **Executor Model**: Defaults to `o3` for task execution
+- **Custom Models**: Support for any OpenAI-compatible API
+
+### Tool Configuration
+
+- **Search**: Configure SearxNG instance URL
+- **Code Execution**: Customize import whitelist and security settings
+- **Document Processing**: Set cache directories and processing limits
+
+---
+
+## 📊 Performance
+
+### Benchmark Results
+
+- **GAIA**: 87.88% (Val, Pass@3 Top-1) and **79.40%** (Test)
+- **DeepResearcher**: **66.6% F1 / 80.4% PM**, with **+4.7–9.6** absolute gains on OOD datasets
+- **SimpleQA**: **95.0%**
+- **HLE**: **24.4% PM** (close to GPT-5 at 25.32%)
+
+### Key Insights
+
+- **Small, high-quality memory works best**: Retrieval **K=4** yields peak F1/PM
+- **Planning + CBR consistently improves performance**
+- **Concise, structured planning outperforms verbose deliberation**
+
+---
+
+## 🛠️ Development
+
+### Project Structure
+
+```
+AgentFly/
+├── client/                 # Main agent implementation
+│   └── agent.py          # Hierarchical client with planner-executor
+├── server/                # MCP tool servers
+│   ├── code_agent.py     # Code execution and workspace management
+│   ├── search_tool.py    # Web search via SearxNG
+│   ├── documents_tool.py # Multi-format document processing
+│   ├── image_tool.py     # Image analysis and captioning
+│   ├── video_tool.py     # Video processing and narration
+│   ├── excel_tool.py     # Spreadsheet processing
+│   ├── math_tool.py      # Mathematical computations
+│   └── craw_page.py      # Web page crawling
+├── interpreters/          # Code execution backends
+│   ├── docker_interpreter.py
+│   ├── e2b_interpreter.py
+│   ├── internal_python_interpreter.py
+│   └── subprocess_interpreter.py
+└── paper/                 # Research paper and documentation
+```
+
+### Adding New Tools
+
+1. Create a new FastMCP server in the `server/` directory
+2. Implement your tool functions with proper error handling
+3. Register the tool with the MCP protocol
+4. Update the client's server list in `agent.py`
+
+### Custom Interpreters
+
+Extend the `interpreters/` module to add new execution backends:
+
+```python
+from interpreters.base import BaseInterpreter
+
+class CustomInterpreter(BaseInterpreter):
+    async def execute(self, code: str) -> str:
+        # Your custom execution logic
+        pass
+```
+
+---
+
+## 🧪 Reproducing Results
+
+### GAIA Benchmark
+
+```bash
+# Use recommended model configuration
+python client/agent.py -m gpt-4.1 -e o3
+# Initialize empty memory and iterate 3× to collect trajectories
+```
+
+### DeepResearcher
+
+```bash
+# Use K=4 retrieval for optimal performance
+# Report F1/PM metrics with ablation studies
+```
+
+### Known Limitations
+
+- **Long-horizon tasks**: GAIA Level-3 remains challenging due to compounding errors
+- **Frontier knowledge**: HLE performance limited by tooling alone
+- **Open-source coverage**: Limited executor validation in fully open pipelines
+
+---
+
+## 📚 Citation
+
+If AgentFly helps your work, please cite:
+
+```bibtex
+@techreport{AgentFly2025,
+  title        = {AgentFly: Fine-tuning LLM Agents without Fine-tuning LLMs},
+  author       = {Huichi Zhou and Yihang Chen and Siyuan Guo and Xue Yan and
+                  Kin Hei Lee and Zihan Wang and Ka Yiu Lee and Guchun Zhang and
+                  Kun Shao and Linyi Yang and Jun Wang},
+  year         = {2025},
+  github       = {https://github.com/Agent-on-the-Fly/AgentFly}
+}
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our contributing guidelines for:
+
+- Bug reports and feature requests
+- Code contributions and pull requests
+- Documentation improvements
+- Tool and interpreter extensions
+
+---
+
+## 🙏 Acknowledgments
+
+Thanks to the open-source community and contributors who made this project possible.
