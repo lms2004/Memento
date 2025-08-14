@@ -283,24 +283,7 @@ class CustomInterpreter(BaseInterpreter):
 
 ---
 
-## 🧪 Reproducing Results
-
-### GAIA Benchmark
-
-```bash
-# Use recommended model configuration
-python client/agent.py -m gpt-4.1 -e o3
-# Initialize empty memory and iterate 3× to collect trajectories
-```
-
-### DeepResearcher
-
-```bash
-# Use K=4 retrieval for optimal performance
-# Report F1/PM metrics with ablation studies
-```
-
-### Known Limitations
+### Limitations
 
 - **Long-horizon tasks**: GAIA Level-3 remains challenging due to compounding errors
 - **Frontier knowledge**: HLE performance limited by tooling alone
