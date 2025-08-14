@@ -50,12 +50,128 @@
 - OpenAI API key (or compatible API endpoint)
 - Optional: SearxNG instance for web search
 
+### Environment Setup
+
+#### Using Conda 
+
+```bash
+# Create and activate conda environment
+conda create -n agentfly python=3.11 -y
+conda activate agentfly
+
+# Navigate to client directory
+cd AgentFly/client
+
+# Create environment file
+touch .env
+```
+
+#### Using pip 
+
+```bash
+cd AgentFly/client
+touch .env
+```
+
+### Environment Variables Configuration
+
+After creating the `.env` file, you need to configure the following API keys and service endpoints:
+
+```bash
+# OPENAI API
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_BASE_URL=https://api.openai.com/v1  # or your custom endpoint
+
+#===========================================
+# Tools & Services API
+#===========================================
+# Chunkr API (https://chunkr.ai/)
+CHUNKR_API_KEY=your_chunkr_api_key_here
+
+# Jina API
+JINA_API_KEY=your_jina_api_key_here
+
+# ASSEMBLYAI API 
+ASSEMBLYAI_API_KEY=your_assemblyai_api_key_here
+```
+
+**Note**: Replace `your_*_api_key_here` with your actual API keys. Some services are optional depending on which tools you plan to use.
+
+### Dependencies Installation
+
+#### Core Dependencies
+
+```bash
+# Core packages
+pip install python-dotenv
+pip install fastmcp
+pip install openai
+pip install tenacity
+pip install colorlog
+pip install tiktoken
+pip install colorama
+```
+
+#### Web Scraping & Search
+
+```bash
+# Web crawling and search capabilities
+pip install -U crawl4ai
+crawl4ai-setup
+crawl4ai-doctor
+playwright install
+```
+
+#### Utility Libraries
+
+```bash
+# Utility and helper packages
+pip install loguru
+pip install retry
+pip install pandas
+```
+
+#### Media Processing
+
+```bash
+# Audio/Video processing
+pip install ffmpeg
+pip install yt_dlp
+pip install opencv-python
+pip install scenedetect
+pip install assemblyai
+```
+
+#### Document Processing
+
+```bash
+# Office document handling
+pip install python-pptx
+pip install docx2markdown
+pip install chunkr_ai
+pip install xmltodict
+```
+
+### SearxNG Setup
+
+For web search capabilities, set up SearxNG: 
+You can follow https://github.com/searxng/searxng-docker/ to set the docker and use our setting.
+
+```bash
+# In a new terminal
+cd ./AgentFly/searxng-docker
+docker compose up -d
+```
+
 ### Installation
 
 ```bash
 git clone https://github.com/Agent-on-the-Fly/AgentFly
 cd AgentFly
-pip install -r requirements.txt
+
+# Follow the Environment Setup and Dependencies Installation sections above
+# Then run the basic installation:
+pip install -r requirements.txt  # If available, otherwise install dependencies manually
 ```
 
 ### Environment Setup
@@ -74,19 +190,6 @@ OPENAI_BASE_URL=https://api.openai.com/v1  # or your custom endpoint
 ```bash
 python client/agent.py
 ```
-
-#### Single Query Mode
-
-```bash
-python client/agent.py -q "What is the current weather in New York?" -m gpt-4.1 -e o3
-```
-
-#### With File Context
-
-```bash
-python client/agent.py -q "Summarize this document" -f /path/to/document.pdf
-```
-
 
 ---
 
@@ -167,6 +270,16 @@ class CustomInterpreter(BaseInterpreter):
         # Your custom execution logic
         pass
 ```
+
+---
+
+## 📋 TODO
+
+### Upcoming Features & Improvements
+
+- [ ] **Add Case Bank Reasoning**: Implement memory-based case retrieval and reasoning system
+- [ ] **Refine Tools & Add More Tools**: Enhance existing tools and expand the tool ecosystem
+- [ ] **Test More New Benchmarks**: Evaluate performance on additional benchmark datasets
 
 ---
 
