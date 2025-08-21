@@ -66,12 +66,6 @@ cd AgentFly/client
 touch .env
 ```
 
-#### Using pip 
-
-```bash
-cd AgentFly/client
-touch .env
-```
 
 ### Environment Variables Configuration
 
@@ -99,19 +93,6 @@ ASSEMBLYAI_API_KEY=your_assemblyai_api_key_here
 
 ### Dependencies Installation
 
-#### Core Dependencies
-
-```bash
-# Core packages
-pip install python-dotenv
-pip install fastmcp
-pip install openai
-pip install tenacity
-pip install colorlog
-pip install tiktoken
-pip install colorama
-```
-
 #### Web Scraping & Search
 
 ```bash
@@ -125,31 +106,7 @@ playwright install
 #### Utility Libraries
 
 ```bash
-# Utility and helper packages
-pip install loguru
-pip install retry
-pip install pandas
-```
-
-#### Media Processing
-
-```bash
-# Audio/Video processing
-pip install ffmpeg
-pip install yt_dlp
-pip install opencv-python
-pip install scenedetect
-pip install assemblyai
-```
-
-#### Document Processing
-
-```bash
-# Office document handling
-pip install python-pptx
-pip install docx2markdown
-pip install chunkr_ai
-pip install xmltodict
+pip install -r requirements.txt
 ```
 
 ### SearxNG Setup
