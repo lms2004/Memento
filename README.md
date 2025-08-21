@@ -54,8 +54,15 @@
 
 #### Using Conda 
 
+### Installation
+
+
 ```bash
 # Create and activate conda environment
+
+git clone https://github.com/Agent-on-the-Fly/AgentFly
+cd AgentFly
+
 conda create -n agentfly python=3.11 -y
 conda activate agentfly
 
@@ -120,25 +127,6 @@ cd ./AgentFly/searxng-docker
 docker compose up -d
 ```
 
-### Installation
-
-```bash
-git clone https://github.com/Agent-on-the-Fly/AgentFly
-cd AgentFly
-
-# Follow the Environment Setup and Dependencies Installation sections above
-# Then run the basic installation:
-pip install -r requirements.txt  # If available, otherwise install dependencies manually
-```
-
-### Environment Setup
-
-Create a `.env` file with your API keys:
-
-```bash
-OPENAI_API_KEY=your_openai_api_key_here
-OPENAI_BASE_URL=https://api.openai.com/v1  # or your custom endpoint
-```
 
 ### Basic Usage
 
