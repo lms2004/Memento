@@ -8,6 +8,33 @@
 
 ---
 
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="Figure/f1_val_test.jpg" width="90%"/>
+      <br/>
+      <sub><b>AgentFly vs. Baselines on GAIA validation and test sets.</b></sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="Figure/f1_tasks.jpg" width="90%"/>
+      <br/>
+      <sub><b>Ablation study of AgentFly across benchmarks.</b></sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="Figure/f1_iteration.jpg" width="90%"/>
+      <br/>
+      <sub><b>Continual learning curves across memory designs.</b></sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="Figure/f1_ood.jpg" width="90%"/>
+      <br/>
+      <sub><b>AgentFly’s accuracy improvement on OOD datasets.</b></sub>
+    </td>
+  </tr>
+</table>
+
 ## 🔥 Key Features
 
 - **No LLM weight updates.** AgentFly reframes continual learning as **memory-based online reinforcement learning** over a **memory-augmented MDP**. A neural **case-selection policy** guides actions; experiences are stored and reused via efficient Read/Write operations.
