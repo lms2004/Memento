@@ -213,12 +213,11 @@ AgentFly/
 │   ├── excel_tool.py     # Spreadsheet processing
 │   ├── math_tool.py      # Mathematical computations
 │   └── craw_page.py      # Web page crawling
-├── interpreters/          # Code execution backends
-│   ├── docker_interpreter.py
-│   ├── e2b_interpreter.py
-│   ├── internal_python_interpreter.py
-│   └── subprocess_interpreter.py
-└── paper/                 # Research paper and documentation
+└── interpreters/          # Code execution backends
+    ├── docker_interpreter.py
+    ├── e2b_interpreter.py
+    ├── internal_python_interpreter.py
+    └── subprocess_interpreter.py
 ```
 
 ### Adding New Tools
