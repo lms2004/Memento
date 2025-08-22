@@ -75,11 +75,9 @@
 
 - Python 3.10+
 - OpenAI API key (or compatible API endpoint)
-- Optional: SearxNG instance for web search
+- SearxNG instance for web search
 
 ### Environment Setup
-
-#### Using Conda 
 
 ### Installation
 
