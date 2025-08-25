@@ -1,4 +1,4 @@
-# AgentFly: Fine-tuning LLM Agents **without** Fine-tuning LLMs
+# Memento: Fine-tuning LLM Agents **without** Fine-tuning LLMs
 
 > A memory-based, continual-learning framework that helps LLM agents improve from experience **without** updating model weights.
 
@@ -13,12 +13,12 @@
     <td align="center" width="50%">
       <img src="Figure/f1_val_test.jpg" width="90%"/>
       <br/>
-      <sub><b>AgentFly vs. Baselines on GAIA validation and test sets.</b></sub>
+      <sub><b>Memento vs. Baselines on GAIA validation and test sets.</b></sub>
     </td>
     <td align="center" width="50%">
       <img src="Figure/f1_tasks.jpg" width="90%"/>
       <br/>
-      <sub><b>Ablation study of AgentFly across benchmarks.</b></sub>
+      <sub><b>Ablation study of Memento across benchmarks.</b></sub>
     </td>
   </tr>
   <tr>
@@ -30,14 +30,14 @@
     <td align="center" width="50%">
       <img src="Figure/f1_ood.jpg" width="90%"/>
       <br/>
-      <sub><b>AgentFly’s accuracy improvement on OOD datasets.</b></sub>
+      <sub><b>Memento’s accuracy improvement on OOD datasets.</b></sub>
     </td>
   </tr>
 </table>
 
 ## 🔥 Key Features
 
-- **No LLM weight updates.** AgentFly reframes continual learning as **memory-based online reinforcement learning** over a **memory-augmented MDP**. A neural **case-selection policy** guides actions; experiences are stored and reused via efficient Read/Write operations.
+- **No LLM weight updates.** Memento reframes continual learning as **memory-based online reinforcement learning** over a **memory-augmented MDP**. A neural **case-selection policy** guides actions; experiences are stored and reused via efficient Read/Write operations.
 - **Two-stage planner–executor loop.** A CBR-driven **Planner** decomposes tasks and retrieves relevant cases; an **Executor** runs each subtask as an MCP client, orchestrating tools and writing back outcomes.
 - **Comprehensive tool ecosystem.** Built-in support for web search, document processing, code execution, image/video analysis, and more through a unified MCP interface.
 - **Strong benchmark performance.** Achieves competitive results across GAIA, DeepResearcher, SimpleQA, and HLE benchmarks.
@@ -46,7 +46,7 @@
 
 ## 🧠 Core Concept
 
-**Learn from experiences, not gradients.** AgentFly logs successful & failed trajectories into a **Case Bank** and **retrieves by value** to steer planning and execution—enabling low-cost, transferable, and online continual learning.
+**Learn from experiences, not gradients.** Memento logs successful & failed trajectories into a **Case Bank** and **retrieves by value** to steer planning and execution—enabling low-cost, transferable, and online continual learning.
 
 ---
 
@@ -85,14 +85,14 @@
 ```bash
 # Create and activate conda environment
 
-git clone https://github.com/Agent-on-the-Fly/AgentFly
-cd AgentFly
+git clone https://github.com/Agent-on-the-Fly/Memento
+cd Memento
 
-conda create -n agentfly python=3.11 -y
-conda activate agentfly
+conda create -n Memento python=3.11 -y
+conda activate Memento
 
 # Navigate to client directory
-cd AgentFly/client
+cd Memento/client
 
 # Create environment file
 touch .env
@@ -148,7 +148,7 @@ You can follow https://github.com/searxng/searxng-docker/ to set the docker and 
 
 ```bash
 # In a new terminal
-cd ./AgentFly/searxng-docker
+cd ./Memento/searxng-docker
 docker compose up -d
 ```
 
@@ -201,7 +201,7 @@ python client/agent.py
 ### Project Structure
 
 ```
-AgentFly/
+Memento/
 ├── client/                 # Main agent implementation
 │   └── agent.py          # Hierarchical client with planner-executor
 ├── server/                # MCP tool servers
@@ -262,16 +262,16 @@ class CustomInterpreter(BaseInterpreter):
 
 ## 📚 Citation
 
-If AgentFly helps your work, please cite:
+If Memento helps your work, please cite:
 
 ```bibtex
-@techreport{AgentFly2025,
-  title        = {AgentFly: Fine-tuning LLM Agents without Fine-tuning LLMs},
+@techreport{Memento2025,
+  title        = {Memento: Fine-tuning LLM Agents without Fine-tuning LLMs},
   author       = {Huichi Zhou and Yihang Chen and Siyuan Guo and Xue Yan and
                   Kin Hei Lee and Zihan Wang and Ka Yiu Lee and Guchun Zhang and
                   Kun Shao and Linyi Yang and Jun Wang},
   year         = {2025},
-  github       = {https://github.com/Agent-on-the-Fly/AgentFly}
+  github       = {https://github.com/Agent-on-the-Fly/Memento}
 }
 ```
 
