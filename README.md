@@ -260,6 +260,12 @@ class CustomInterpreter(BaseInterpreter):
 
 ---
 
+## 🙏 Acknowledgement
+
+* Some parts of the code in the toolkits and interpreters are adapted from [Camel-AI](https://github.com/camel-ai/camel).
+
+---
+
 ## 📚 Citation
 
 If Memento helps your work, please cite:
