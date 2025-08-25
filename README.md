@@ -55,7 +55,7 @@
 ### Core Components
 
 - **Meta-Planner**: Breaks down high-level queries into executable subtasks using GPT-4.1
-- **Executor**: Executes individual subtasks using GPT-3.5 or other models via MCP tools
+- **Executor**: Executes individual subtasks using o3 or other models via MCP tools
 - **Case Memory**: Stores final-step tuples **(s_T, a_T, r_T)** for experience replay
 - **MCP Tool Layer**: Unified interface for external tools and services
 
