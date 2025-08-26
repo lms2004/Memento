@@ -35,6 +35,10 @@
   </tr>
 </table>
 
+## 📰 News
+
+- We add the SerpAPI (https://serpapi.com/search-api) MCP tool to help you avoid using the search Docker and speed up development. 
+
 ## 🔥 Key Features
 
 - **No LLM weight updates.** Memento reframes continual learning as **memory-based online reinforcement learning** over a **memory-augmented MDP**. A neural **case-selection policy** guides actions; experiences are stored and reused via efficient Read/Write operations.
