@@ -247,6 +247,7 @@ class CustomInterpreter(BaseInterpreter):
 ### Upcoming Features & Improvements
 
 - [ ] **Add Case Bank Reasoning**: Implement memory-based case retrieval and reasoning system
+- [ ] **Add User Personal Memory Mechanism**: Implement user-preference search 
 - [ ] **Refine Tools & Add More Tools**: Enhance existing tools and expand the tool ecosystem
 - [ ] **Test More New Benchmarks**: Evaluate performance on additional benchmark datasets
 
