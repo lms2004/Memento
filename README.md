@@ -37,7 +37,7 @@
 
 ## 📰 News
 
-- We add the SerpAPI (https://serpapi.com/search-api) MCP tool to help you avoid using the search Docker and speed up development. 
+- `2025.08.26` We add the SerpAPI (https://serpapi.com/search-api) MCP tool to help you avoid using the search Docker and speed up development. 
 
 ## 🔥 Key Features
 
