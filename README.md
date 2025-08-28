@@ -36,6 +36,7 @@
 </table>
 
 ## 📰 News
+- [2025.08.28] We’ve created a Discord server to make discussions and collaboration around this project easier. Feel free to join and share your thoughts, ask questions, or contribute ideas! 🔥 🔥 🔥 [Join our Discord!](https://discord.gg/y4FP2EDXyX)
 - [2025.08.27] Thanks for your interest in our work! We’ll release our CBR code next week and our Parametric Memory code next month. We’ll keep updating on our further development.
 - [2025.08.27] We add a new Crawler MCP in ```server/ai_crawler.py``` for web crawling and query-aware content compression to reduce token cost.
 - [2025.08.26] We add the SerpAPI (https://serpapi.com/search-api) MCP tool to help you avoid using the search Docker and speed up development. 
