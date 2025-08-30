@@ -209,22 +209,32 @@ python client/agent.py
 
 ```
 Memento/
-├── client/                 # Main agent implementation
-│   └── agent.py          # Hierarchical client with planner-executor
-├── server/                # MCP tool servers
-│   ├── code_agent.py     # Code execution and workspace management
-│   ├── search_tool.py    # Web search via SearxNG
-│   ├── documents_tool.py # Multi-format document processing
-│   ├── image_tool.py     # Image analysis and captioning
-│   ├── video_tool.py     # Video processing and narration
-│   ├── excel_tool.py     # Spreadsheet processing
-│   ├── math_tool.py      # Mathematical computations
-│   └── craw_page.py      # Web page crawling
-└── interpreters/          # Code execution backends
-    ├── docker_interpreter.py
-    ├── e2b_interpreter.py
-    ├── internal_python_interpreter.py
-    └── subprocess_interpreter.py
+├── client/                   # Main agent implementation
+│   ├── agent.py             # Hierarchical client with planner–executor
+│   └── no_parametric_cbr.py # Non-parametric case-based reasoning
+├── server/                   # MCP tool servers
+│   ├── code_agent.py        # Code execution & workspace management
+│   ├── search_tool.py       # Web search via SearxNG
+│   ├── serp_search.py       # SERP-based search tool
+│   ├── documents_tool.py    # Multi-format document processing
+│   ├── image_tool.py        # Image analysis & captioning
+│   ├── video_tool.py        # Video processing & narration
+│   ├── excel_tool.py        # Spreadsheet processing
+│   ├── math_tool.py         # Mathematical computations
+│   ├── craw_page.py         # Web page crawling
+│   └── ai_crawler.py        # Query-aware compression crawler
+├── interpreters/             # Code execution backends
+│   ├── docker_interpreter.py
+│   ├── e2b_interpreter.py
+│   ├── internal_python_interpreter.py
+│   └── subprocess_interpreter.py
+├── memory/                   # Memory components / data
+├── data/                     # Sample data / cases
+├── searxng-docker/           # SearxNG Docker setup
+├── Figure/                   # Figures for README/paper
+├── README.md
+├── requirements.txt
+└── LICENSE
 ```
 
 ### Adding New Tools
