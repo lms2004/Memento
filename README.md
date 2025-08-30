@@ -36,6 +36,7 @@
 </table>
 
 ## 📰 News
+- [2025.08.28] We’re excited to announce that our no-parametric Case-Based Reasoning inference code is now officially open-sourced! 🎉
 - [2025.08.28] We’ve created a Discord server to make discussions and collaboration around this project easier. Feel free to join and share your thoughts, ask questions, or contribute ideas! 🔥 🔥 🔥 [Join our Discord!](https://discord.gg/y4FP2EDXyX)
 - [2025.08.27] Thanks for your interest in our work! We’ll release our CBR code next week and our Parametric Memory code next month. We’ll keep updating on our further development.
 - [2025.08.27] We add a new Crawler MCP in ```server/ai_crawler.py``` for web crawling and query-aware content compression to reduce token cost.
@@ -278,15 +279,22 @@ class CustomInterpreter(BaseInterpreter):
 If Memento helps your work, please cite:
 
 ```bibtex
-@techreport{Memento2025,
-  title        = {Memento: Fine-tuning LLM Agents without Fine-tuning LLMs},
-  author       = {Huichi Zhou and Yihang Chen and Siyuan Guo and Xue Yan and
-                  Kin Hei Lee and Zihan Wang and Ka Yiu Lee and Guchun Zhang and
-                  Kun Shao and Linyi Yang and Jun Wang},
-  year         = {2025},
-  github       = {https://github.com/Agent-on-the-Fly/Memento}
+@article{zhou2025agentfly,
+  title={AgentFly: Fine-tuning LLM Agents without Fine-tuning LLMs},
+  author={Zhou, Huichi and Chen, Yihang and Guo, Siyuan and Yan, Xue and Lee, Kin Hei and Wang, Zihan and Lee, Ka Yiu and Zhang, Guchun and Shao, Kun and Yang, Linyi and others},
+  journal={arXiv preprint arXiv:2508.16153},
+  year={2025}
+}
+
+@article{huang2025deep,
+  title={Deep Research Agents: A Systematic Examination And Roadmap},
+  author={Huang, Yuxuan and Chen, Yihang and Zhang, Haozheng and Li, Kang and Fang, Meng and Yang, Linyi and Li, Xiaoguang and Shang, Lifeng and Xu, Songcen and Hao, Jianye and others},
+  journal={arXiv preprint arXiv:2506.18096},
+  year={2025}
 }
 ```
+
+For a broader overview, please check out our survey: [Github](https://github.com/ai-agents-2030/awesome-deep-research-agent)
 
 ---
 
