@@ -145,6 +145,7 @@ playwright install
 #### Utility Libraries
 
 ```bash
+conda install ffmpeg
 pip install -r requirements.txt
 ```
 
