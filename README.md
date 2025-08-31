@@ -80,31 +80,69 @@
 
 ### Prerequisites
 
-- Python 3.10+
+- Python 3.11+
 - OpenAI API key (or compatible API endpoint)
 - SearxNG instance for web search
-
-### Environment Setup
+- FFmpeg (system-level binary required for video processing)
 
 ### Installation
 
+#### Method 1: Using uv (Recommended - Fast & Modern)
 
 ```bash
-# Create and activate conda environment
-
+# Clone repository
 git clone https://github.com/Agent-on-the-Fly/Memento
 cd Memento
 
-conda create -n Memento python=3.11 -y
-conda activate Memento
+# Install uv if not already installed
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Navigate to client directory
-cd Memento/client
+# Sync dependencies and create virtual environment automatically
+uv sync
 
-# Create environment file
-touch .env
+# Activate the virtual environment
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ```
 
+
+### System Dependencies Installation
+
+#### FFmpeg Installation (Required)
+
+**FFmpeg is required for video processing functionality.** The `ffmpeg-python` package in our dependencies requires a system-level FFmpeg binary.
+
+**Windows:**
+```bash
+# Option 1: Using Conda (Recommended for isolated environment)
+conda install -c conda-forge ffmpeg
+
+# Option 2: Download from official website
+# Visit https://ffmpeg.org/download.html and add to PATH
+```
+
+**macOS:**
+```bash
+# Using Homebrew
+brew install ffmpeg
+```
+
+**Linux:**
+```bash
+# Debian/Ubuntu
+sudo apt-get update && sudo apt-get install ffmpeg
+
+```
+
+#### Web Scraping & Search Setup
+
+```bash
+# Install and setup crawl4ai
+crawl4ai-setup
+crawl4ai-doctor
+
+# Install playwright browsers
+playwright install
+```
 
 ### Environment Variables Configuration
 
@@ -130,24 +168,6 @@ ASSEMBLYAI_API_KEY=your_assemblyai_api_key_here
 
 **Note**: Replace `your_*_api_key_here` with your actual API keys. Some services are optional depending on which tools you plan to use.
 
-### Dependencies Installation
-
-#### Web Scraping & Search
-
-```bash
-# Web crawling and search capabilities
-pip install -U crawl4ai
-crawl4ai-setup
-crawl4ai-doctor
-playwright install
-```
-
-#### Utility Libraries
-
-```bash
-conda install ffmpeg
-pip install -r requirements.txt
-```
 
 ### SearxNG Setup
 
