@@ -36,6 +36,7 @@
 </table>
 
 ## 📰 News
+- [2025.09.03] We’ve set up a WeChat group to make it easier to collaborate and exchange ideas on this project. Welcome to join the Group to share your thoughts, ask questions, or contribute your ideas! 🔥 🔥 🔥 [Join our WeChat Group Now!]()
 - [2025.08.30] We’re excited to announce that our no-parametric Case-Based Reasoning inference code is now officially open-sourced! 🎉
 - [2025.08.28] We’ve created a Discord server to make discussions and collaboration around this project easier. Feel free to join and share your thoughts, ask questions, or contribute ideas! 🔥 🔥 🔥 [Join our Discord!](https://discord.gg/y4FP2EDXyX)
 - [2025.08.27] Thanks for your interest in our work! We’ll release our CBR code next week and our Parametric Memory code next month. We’ll keep updating on our further development.
