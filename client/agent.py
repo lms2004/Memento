@@ -16,6 +16,10 @@ import colorlog
 import json
 import tiktoken
 
+# Load environment variables as early as possible so that os.getenv() below
+# (e.g., for META_MODEL/EXEC_MODEL defaults) can read values from .env.
+load_dotenv()
+
 # ---------------------------------------------------------------------------
 #   Logging setup
 # ---------------------------------------------------------------------------
@@ -283,7 +287,6 @@ async def run_single_query(client: HierarchicalClient, question: str, file_path:
     print("\nFINAL ANSWER:", answer)
 
 async def main_async(args):
-    load_dotenv()
     client = HierarchicalClient(args.meta_model, args.exec_model)
     await client.connect_to_servers(args.servers)
 
