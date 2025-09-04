@@ -37,9 +37,11 @@ load_dotenv()  # picks up OPENAI_* variables from .env if present
 #  OpenAI client (async)                                                      #
 # --------------------------------------------------------------------------- #
 
+api_key = os.getenv("VOLC_API_KEY") or os.getenv("OPENAI_API_KEY")
+base_url = os.getenv("VOLC_BASE_URL") or os.getenv("OPENAI_BASE_URL")
 openai_client = AsyncOpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_BASE_URL"),  # works with Azure etc.
+    api_key=api_key,
+    base_url=base_url,  # works with Volcengine/Azure compatible endpoints
 )
 
 # --------------------------------------------------------------------------- #
@@ -76,10 +78,15 @@ def _extract_audio(video_file: str, output_format: str = "mp3") -> str:
 
 async def _transcribe_audio_async(audio_path: str) -> str:
     """Whisper transcription via AsyncOpenAI; returns '' if disabled."""
+    # 检查是否禁用 Whisper 或未配置模型
+    whisper_enabled = os.getenv("WHISPER_ENABLED", "true").lower() in ("1", "true", "yes", "on")
+    whisper_model = os.getenv("WHISPER_MODEL", "whisper-1").strip()
+    if (not whisper_enabled) or (not whisper_model) or (whisper_model.lower() == "disabled"):
+        return ""
     if not openai_client.api_key:
         return ""
     rsp = await openai_client.audio.transcriptions.create(
-        model="whisper-1",
+        model=whisper_model,
         file=open(audio_path, "rb"),
     )
     return rsp.text.strip()
@@ -241,8 +248,13 @@ async def ask_question_about_video(
         ),
     ]
 
+    # 检查是否禁用视频视觉问答或未配置模型
+    vv_enabled = os.getenv("VIDEO_VISION_ENABLED", "true").lower() in ("1", "true", "yes", "on")
+    video_vision_model = os.getenv("VIDEO_VISION_MODEL", "gemini-2.5-pro-preview-05-06").strip()
+    if (not vv_enabled) or (not video_vision_model) or (video_vision_model.lower() == "disabled"):
+        return "(视频视觉问答已禁用)"
     chat = await openai_client.chat.completions.create(
-        model="gemini-2.5-pro-preview-05-06",
+        model=video_vision_model,
         messages=[{"role": "user", "content": user_message}],
         max_tokens=512,
     )

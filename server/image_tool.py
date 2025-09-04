@@ -95,15 +95,24 @@ class ImageAnalysisToolkit:
                 ],
             },
         ]
+        # 环境变量可禁用图像理解：VISION_ENABLED=false 或 VISION_MODEL 为空/disabled
+        vision_model = os.getenv("VISION_MODEL", "gemini-2.5-pro-preview-05-06")
+        vision_enabled = os.getenv("VISION_ENABLED", "true").lower() in ("1", "true", "yes", "on")
+        if (not vision_enabled) or (not vision_model.strip()) or (vision_model.lower() == "disabled"):
+            raise RuntimeError(
+                "Image analysis disabled via env. Set VISION_ENABLED=true 且提供有效的 VISION_MODEL 以启用。"
+            )
+        api_key = os.getenv("VOLC_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("VOLC_BASE_URL") or os.getenv("OPENAI_BASE_URL")
         openai_client = AsyncOpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL"),  # works with Azure etc.
+            api_key=api_key,
+            base_url=base_url,  # works with Volcengine/Azure compatible endpoints
         )
 
         try:
             logger.info("Sending image to OpenAI ChatCompletion (vision)…")
             response = await openai_client.chat.completions.create(
-                model="gemini-2.5-pro-preview-05-06",
+                model=vision_model,
                 messages=messages,
             )
             return response.choices[0].message.content.strip()

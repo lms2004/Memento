@@ -52,7 +52,8 @@ EXEC_SYSTEM_PROMPT = (
 )
 
 MAX_CTX = 175000
-EXE_MODEL = "o3"
+# 允许通过环境变量覆盖执行模型
+EXE_MODEL = os.getenv("EXEC_MODEL", "o3-2025-04-16")
 
 # ---------------------------------------------------------------------------
 #   OpenAI backend
@@ -64,9 +65,11 @@ class ChatBackend:
 class OpenAIBackend(ChatBackend):
     def __init__(self, model: str):
         self.model = model
+        api_key = os.getenv("VOLC_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("VOLC_BASE_URL") or os.getenv("OPENAI_BASE_URL")
         self.client = AsyncOpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL"),
+            api_key=api_key,
+            base_url=base_url,
         )
 
     @retry(
@@ -255,8 +258,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="AgentFly – interactive version")
     parser.add_argument("-q", "--question", type=str, help="Your question")
     parser.add_argument("-f", "--file", type=str, default="", help="Optional file path")
-    parser.add_argument("-m", "--meta_model", type=str, default="gpt-4.1", help="Meta‑planner model")
-    parser.add_argument("-e", "--exec_model", type=str, default="o3-2025-04-16", help="Executor model")
+    parser.add_argument("-m", "--meta_model", type=str, default=os.getenv("META_MODEL", "gpt-4.1"), help="Meta‑planner model")
+    parser.add_argument("-e", "--exec_model", type=str, default=os.getenv("EXEC_MODEL", EXE_MODEL), help="Executor model")
     parser.add_argument("-s", "--servers", type=str, nargs="*", default=[
         "../server/code_agent.py",
         "../server/craw_page.py",

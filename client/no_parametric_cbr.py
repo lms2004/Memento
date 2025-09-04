@@ -30,9 +30,9 @@ colorlog.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 logger = logging.getLogger(__name__)
 
 MAX_CTX = 175000
-EXE_MODEL = "o4-mini"
+EXE_MODEL = os.getenv("EXEC_MODEL", "o4-mini")
 
-JUDGE_MODEL = "gpt-4o-mini"
+JUDGE_MODEL = os.getenv("JUDGE_MODEL", "gpt-4o-mini")
 
 PROMPT_TPL = '''You will be given a question and its ground truth answer list where each item can be a ground truth answer. Provided a pred_answer, you need to judge if the pred_answer correctly answers the question based on the ground truth answer list.
 You should first give your rationale for the judgement, and then give your judgement result (i.e., correct or incorrect).
@@ -222,9 +222,11 @@ class ChatBackend:
 class OpenAIBackend(ChatBackend):
     def __init__(self, model: str):
         self.model = model
+        api_key = os.getenv("VOLC_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("VOLC_BASE_URL") or os.getenv("OPENAI_BASE_URL")
         self.client = AsyncOpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL"),
+            api_key=api_key,
+            base_url=base_url,
         )
 
     @retry(
@@ -479,9 +481,11 @@ class HierarchicalClient:
     async def cleanup(self):
         await self.exit_stack.aclose()
 
+api_key = os.getenv("VOLC_API_KEY") or os.getenv("OPENAI_API_KEY")
+base_url = os.getenv("VOLC_BASE_URL") or os.getenv("OPENAI_BASE_URL")
 JUDGE_CLIENT = AsyncOpenAI(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    base_url=os.getenv("OPENAI_BASE_URL"),
+    api_key=api_key,
+    base_url=base_url,
 )
 
 def _ensure_list(x: Any) -> List[str]:

@@ -17,9 +17,9 @@ colorlog.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 logger = logging.getLogger("mcp.crawl_extract")
 
 # --------------------------------------------------------------------------- #
-#  Fixed model
+#  Model (configurable)
 # --------------------------------------------------------------------------- #
-DEFAULT_MODEL = "gpt-4.1"
+DEFAULT_MODEL = os.getenv("CRAWL_MODEL", "gpt-4.1")
 
 EXTRACTOR_SYSTEM_PROMPT = (
     "You are a careful, concise information extraction assistant. "
@@ -39,10 +39,10 @@ EXTRACTOR_SYSTEM_PROMPT = (
 # --------------------------------------------------------------------------- #
 class OpenAIBackend:
     def __init__(self):
-        api_key = os.getenv("OPENAI_API_KEY")
+        api_key = os.getenv("VOLC_API_KEY") or os.getenv("OPENAI_API_KEY")
+        base_url = os.getenv("VOLC_BASE_URL") or os.getenv("OPENAI_BASE_URL")
         if not api_key:
-            raise RuntimeError("Missing OPENAI_API_KEY environment variable.")
-        base_url = os.getenv("OPENAI_BASE_URL")
+            raise RuntimeError("Missing API key: set VOLC_API_KEY or OPENAI_API_KEY.")
         self.model = DEFAULT_MODEL  
         self.client = AsyncOpenAI(api_key=api_key, base_url=base_url)
 
