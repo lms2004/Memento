@@ -43,7 +43,7 @@ META_SYSTEM_PROMPT = (
     "Please ensure that the final answer strictly follows the question requirements, without any additional analysis.\n"
     "If the final ansert is not complete, emit a *new* JSON plan for the remaining work. Keep cycles as\n"
     "few as possible. Never call tools yourself — that's the EXECUTOR's job."\
-    "⚠️  Reply with *pure JSON only*."
+    "⚠️  Reply with *pure JSON only*. Do NOT output greetings or any natural language outside the JSON.（请仅输出JSON，不要输出任何问候语或解释。）"
 )
 
 EXEC_SYSTEM_PROMPT = (
@@ -52,7 +52,10 @@ EXEC_SYSTEM_PROMPT = (
     "tools via function calling if needed. Always think step by step but reply\n"
     "with the minimal content needed for the meta-planner. If you must call a\n"
     "tool, produce the appropriate function call instead of natural language.\n"
-    "When done, output a concise result. Do NOT output FINAL ANSWER."
+    "When done, output a concise result. Do NOT output FINAL ANSWER.\n"
+    "For any arithmetic (addition, subtraction, multiplication, division, rounding),\n"
+    "ALWAYS use the math tools: add, sub, multiply, divide, round.\n"
+    "Do NOT attempt arithmetic in natural language or by concatenating strings."
 )
 
 MAX_CTX = 175000
@@ -127,7 +130,8 @@ def _strip_fences(text: str) -> str:
         text = re.sub(r"^```[^\n]*\n", "", text)
         text = re.sub(r"\n?```$", "", text)
         return text.strip()
-    m = re.search(r"{[\\s\\S]*}", text)
+    # Extract the first JSON object from the text; use [\s\S] to match any char
+    m = re.search(r"{[\s\S]*}", text)
     return m.group(0) if m else text
 
 def _count_tokens(msg: Dict[str, str], enc) -> int:
