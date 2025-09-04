@@ -254,22 +254,28 @@ class HierarchicalClient:
 #   Command‑line & main routine
 # ---------------------------------------------------------------------------
 
+# Build default server script paths relative to this file location to avoid
+# CWD-dependent path errors like '../server/...' resolving outside the project.
+_BASE_DIR = Path(__file__).resolve().parent.parent
+_SERVER_DIR = _BASE_DIR / "server"
+DEFAULT_SERVER_SCRIPTS = [
+    str(_SERVER_DIR / "code_agent.py"),
+    str(_SERVER_DIR / "craw_page.py"),
+    str(_SERVER_DIR / "documents_tool.py"),
+    str(_SERVER_DIR / "excel_tool.py"),
+    str(_SERVER_DIR / "image_tool.py"),
+    str(_SERVER_DIR / "math_tool.py"),
+    str(_SERVER_DIR / "search_tool.py"),
+    str(_SERVER_DIR / "video_tool.py"),
+]
+
 def parse_args():
     parser = argparse.ArgumentParser(description="AgentFly – interactive version")
     parser.add_argument("-q", "--question", type=str, help="Your question")
     parser.add_argument("-f", "--file", type=str, default="", help="Optional file path")
     parser.add_argument("-m", "--meta_model", type=str, default=os.getenv("META_MODEL", "gpt-4.1"), help="Meta‑planner model")
     parser.add_argument("-e", "--exec_model", type=str, default=os.getenv("EXEC_MODEL", EXE_MODEL), help="Executor model")
-    parser.add_argument("-s", "--servers", type=str, nargs="*", default=[
-        "../server/code_agent.py",
-        "../server/craw_page.py",
-        "../server/documents_tool.py",
-        "../server/excel_tool.py",
-        "../server/image_tool.py",
-        "../server/math_tool.py",
-        "../server/search_tool.py",
-        "../server/video_tool.py",
-    ], help="Paths of tool server scripts")
+    parser.add_argument("-s", "--servers", type=str, nargs="*", default=DEFAULT_SERVER_SCRIPTS, help="Paths of tool server scripts")
     return parser.parse_args()
 
 async def run_single_query(client: HierarchicalClient, question: str, file_path: str):
